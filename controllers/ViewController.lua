@@ -102,10 +102,11 @@ function view.sendToBack(name)
     end
 end
 
-function view.add(name)
+function view.add(name, object)
     table.insert(views, {
         name = name,
-        state = "stop"
+        state = "stop",
+        object = object
     })
 end
 
