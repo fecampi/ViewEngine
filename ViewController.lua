@@ -1,15 +1,5 @@
 view = {}
-views = {{
-    name = "view1"
-}, {
-    name = "view2"
-}, {
-    name = "view3"
-}, {
-    name = "view4"
-}, {
-    name = "view5"
-}}
+views = {}
 
 function view.moveDown(name)
     for i, v in ipairs(views) do
@@ -112,19 +102,90 @@ function view.sendToBack(name)
     end
 end
 
+function view.add(name)
+    table.insert(views, {
+        name = name,
+        state = "stop"
+    })
+end
+
+function view.remove(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            table.remove(views, i)
+            break
+        end
+    end
+end
+
+--States
+function view.pause(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "pause"
+            break
+        end
+    end
+end
+
+function view.resume(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "resume"
+            break
+        end
+    end
+end
+
+function view.sleep(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "sleep"
+            break
+        end
+    end
+end
+
+function view.wake(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "wake"
+            break
+        end
+    end
+end
+
+function view.stop(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "stop"
+            break
+        end
+    end
+end
+
+function view.start(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "start"
+        elseif v.state == "start" then
+            v.state = "stop"
+        end
+    end
+end
+
+
 function view.print(msg)
     print()
     print("------")
     print(msg)
     print()
     for i, v in ipairs(views) do
-        print(v.name)
+        print("name: ".. v.name .. " - Estado: " ..v.state)
     end
     print("------")
 
 end
 
 return view
-
-
 
