@@ -13,17 +13,20 @@ view.add("view7")
 view.add("view8")
 view.add("view9")
 view.print("Adicionar valores")
+-- remove a view
 view.remove("view9")
 view.print("Deletar a view9")
 
 -- ViewPositionController
-
+--mova uma posição para atrás
 view.moveDown("view3")
 view.print("mover a view3 um passo para atrás")
 
+--mova uma posição para frente
 view.moveUp("view5")
 view.print("mover a view5 um passo para frente")
 
+--troque as posições
 view.swapPosition("view2", "view1")
 view.print("Intercambiar as posições das cenas view2 e view1")
 
