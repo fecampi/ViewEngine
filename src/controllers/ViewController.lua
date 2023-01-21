@@ -195,7 +195,8 @@ end
 
 function view.draw()
     for currentView in pairs(views) do
-        if views[currentView].state == "start" then
+        if views[currentView].state == "start" or views[currentView].state == "resume" or views[currentView].state ==
+            "pause" then
             views[currentView].object.draw(views[currentView].object)
         end
 
@@ -206,7 +207,7 @@ function view.load()
     for currentView in pairs(views) do
         print("loading")
         if views[currentView].state == "start" then
-            if  views[currentView].object.load then
+            if views[currentView].object.load then
                 print("loading")
                 views[currentView].object.load(views[currentView].object)
             end
@@ -217,7 +218,9 @@ end
 
 function view.update(dt)
     for currentView in pairs(views) do
-        views[currentView].object.update(views[currentView].object,dt)
+        if views[currentView].state == "resume" or views[currentView].state == "start" then
+            views[currentView].object.update(views[currentView].object, dt)
+        end
     end
 end
 

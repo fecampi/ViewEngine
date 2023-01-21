@@ -54,5 +54,18 @@ function love.keypressed(key)
             pressed3 = true
         end
     end
+
+    if key == "p" then
+        if pressed3 then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            view.resume("view1")
+            pressed3 = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            view.pause("view1")
+            pressed3 = true
+        end
+    end
+
 end
 
