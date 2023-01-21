@@ -102,11 +102,11 @@ function view.sendToBack(name)
     end
 end
 
-function view.add(name, object)
+function view.add(name, path)
     table.insert(views, {
         name = name,
         state = "stop",
-        object = object
+        object = require(path):new()
     })
 end
 

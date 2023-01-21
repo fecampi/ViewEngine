@@ -1,7 +1,7 @@
-local GameView = {}
+local View3 = {}
 
 -- Esqueminha para o lua aceitar a classe(pseudo-construtor)
-function GameView:new(o)
+function View3:new(o)
     o = o or {}
     setmetatable(o, self)
     self.__index = self
@@ -10,19 +10,19 @@ function GameView:new(o)
     return o
 end
 
-function GameView.load(self)
+function View3.load(self)
     -- inicializando variaveis
     self.scareX = 100
     self.square = {
         x = 0,
-        y = 220,
+        y = 320,
         width = 50,
         height = 50,
         speed = 100
     }
 end
 
-function GameView.update(self,dt)
+function View3.update(self,dt)
     self.square.x =  self.square.x +  self.square.speed * dt
     if  self.square.x > love.graphics.getWidth() then
         self.square.speed = - self.square.speed
@@ -31,10 +31,9 @@ function GameView.update(self,dt)
         self.square.speed = - self.square.speed
     end
 end
-function GameView.draw(self)
-    -- print(self.square.x)
+function View3.draw(self)
     love.graphics.rectangle("fill", self.square.x, self.square.y, self.square.width, self.square.height)
-    love.graphics.print("Jogo em Andamento", 100, 200)
+    love.graphics.print("View3", 50, self.square.y-20)
 end
 
-return GameView
+return View3
