@@ -103,6 +103,15 @@ function view.sendToBack(name)
 end
 
 function view.add(name, path)
+    if not path then
+        table.insert(views, {
+            name = name,
+            state = "stop",
+            object = {}
+        })
+        return
+    end
+    path = path or {}
     table.insert(views, {
         name = name,
         state = "stop",
