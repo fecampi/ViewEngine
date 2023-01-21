@@ -2,12 +2,15 @@ view = require("controllers/ViewController")
 view.add("view1", "views/View1")
 view.add("view2", "views/View2")
 view.add("view3", "views/View3")
+view.bringToTop("view3")
+view.sendToBack("view3")
 
 -- Variável para armazenar se o comando foi pressionado uma vez
 pressed1 = false
 pressed2 = false
 pressed3 = false
-
+pressedP = false
+pressedM = false
 function love.load()
     view.load()
 end
@@ -56,14 +59,28 @@ function love.keypressed(key)
     end
 
     if key == "p" then
-        if pressed3 then
+        if  pressedP then
             -- Faz algo se o comando for pressionado pela segunda vez
             view.resume("view1")
-            pressed3 = false
+            pressedP = false
         else
             -- Faz algo se o comando for pressionado pela primeira vez
             view.pause("view1")
-            pressed3 = true
+            pressedP = true
+        end
+    end
+
+    if key == "m" then
+        if pressedM then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            view.bringToTop("view3")
+            print("sendTop")
+            pressedM = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            view.sendToBack("view3")
+            print("sendBack")
+            pressedM = true
         end
     end
 
