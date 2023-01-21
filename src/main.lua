@@ -3,6 +3,7 @@ MenuView = require("views/MenuView")
 GameView = require("views/GameView")
 CreditView = require("views/CreditView")
 
+gameVieww = GameView:new()
 view.add("menuView", MenuView)
 view.add("gameView", GameView)
 view.add("creditView", CreditView)
@@ -12,13 +13,18 @@ pressed1 = false
 pressed2 = false
 pressed3 = false
 
+function love.load()
+    view.load()
+end
+
 function love.update(dt)
-    view.update()
+    view.update(dt)
 end
 
 function love.draw()
     view.draw()
 end
+
 
 function love.keypressed(key)
     if key == "1" then

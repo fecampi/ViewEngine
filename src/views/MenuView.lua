@@ -1,6 +1,6 @@
 local view = {}
 
-function view.update()
+function view.update(self,dt)
     -- Código para atualizar a cena do menu
 end
 function view.draw()

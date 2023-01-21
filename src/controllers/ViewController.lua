@@ -159,6 +159,9 @@ end
 function view.stop(name)
     for i, v in ipairs(views) do
         if v.name == name then
+            if v.object.onStop then
+                v.object.onStop()
+            end
             v.state = "stop"
             break
         end
@@ -168,9 +171,12 @@ end
 function view.start(name)
     for i, v in ipairs(views) do
         if v.name == name then
+            if v.object.onStart then
+                v.object.onStart()
+            end
             v.state = "start"
-        -- elseif v.state == "start" then
-        --     v.state = "stop"
+            -- elseif v.state == "start" then
+            --     v.state = "stop"
         end
     end
 end
@@ -189,8 +195,21 @@ end
 
 function view.draw()
     for currentView in pairs(views) do
-        if  views[currentView].state == "start" then
-            views[currentView].object.draw()
+        if views[currentView].state == "start" then
+            views[currentView].object.draw(views[currentView].object)
+        end
+
+    end
+end
+
+function view.load()
+    for currentView in pairs(views) do
+        print("loading")
+        if views[currentView].state == "start" then
+            if  views[currentView].object.load then
+                print("loading")
+                views[currentView].object.load(views[currentView].object)
+            end
         end
 
     end
@@ -198,7 +217,7 @@ end
 
 function view.update(dt)
     for currentView in pairs(views) do
-        views[currentView].object.update(dt)
+        views[currentView].object.update(views[currentView].object,dt)
     end
 end
 
