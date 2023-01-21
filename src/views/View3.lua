@@ -20,23 +20,23 @@ function View3.load(self)
         height = 50,
         speed = 100
     }
-    self.video = love.graphics.newVideo("views/sample_640x360.ogv")
+    self.video = love.graphics.newVideo("views/video.ogv")
     self.video:play()
 end
 
-function View3.update(self, dt)
-    self.square.x = self.square.x + self.square.speed * dt
-    if self.square.x > love.graphics.getWidth() then
-        self.square.speed = -self.square.speed
+function View3.update(self,dt)
+    self.square.x =  self.square.x +  self.square.speed * dt
+    if  self.square.x > love.graphics.getWidth() then
+        self.square.speed = - self.square.speed
     end
-    if self.square.x < 0 then
-        self.square.speed = -self.square.speed
+    if  self.square.x < 0 then
+        self.square.speed = - self.square.speed
     end
 end
 function View3.draw(self)
     love.graphics.draw(self.video, 0, 0)
-    love.graphics.rectangle("fill", self.square.x, self.square.y, self.square.width, self.square.height)
-    love.graphics.print("View3", 50, self.square.y - 20)
+        love.graphics.rectangle("fill", self.square.x, self.square.y, self.square.width, self.square.height)
+    love.graphics.print("View3", 50, self.square.y-20)
 end
 
 return View3
