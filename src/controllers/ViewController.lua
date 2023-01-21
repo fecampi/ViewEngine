@@ -119,7 +119,7 @@ function view.remove(name)
     end
 end
 
---States
+-- States
 function view.pause(name)
     for i, v in ipairs(views) do
         if v.name == name then
@@ -169,12 +169,11 @@ function view.start(name)
     for i, v in ipairs(views) do
         if v.name == name then
             v.state = "start"
-        elseif v.state == "start" then
-            v.state = "stop"
+        -- elseif v.state == "start" then
+        --     v.state = "stop"
         end
     end
 end
-
 
 function view.print(msg)
     print()
@@ -182,10 +181,25 @@ function view.print(msg)
     print(msg)
     print()
     for i, v in ipairs(views) do
-        print("name: ".. v.name .. " - Estado: " ..v.state)
+        print("name: " .. v.name .. " - Estado: " .. v.state)
     end
     print("------")
 
+end
+
+function view.draw()
+    for currentView in pairs(views) do
+        if  views[currentView].state == "start" then
+            views[currentView].object.draw()
+        end
+
+    end
+end
+
+function view.update(dt)
+    for currentView in pairs(views) do
+        views[currentView].object.update(dt)
+    end
 end
 
 return view
