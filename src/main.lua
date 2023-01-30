@@ -11,7 +11,10 @@ pressed2 = false
 pressed3 = false
 pressedP = false
 pressedM = false
+
 function love.load()
+    love.window.setMode( 1280, 720 )
+    love.window.setTitle("View Engine")
     view.load()
 end
 

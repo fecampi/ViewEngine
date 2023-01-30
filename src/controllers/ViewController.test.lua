@@ -47,16 +47,14 @@ Os eventos start, stop, pause, resume, wake e sleep no Phaser são eventos de ci
 Eles são acionados quando uma cena é iniciada, interrompida, pausada, retomada, acordada ou colocada para dormir.
 ]] --
 
-view.start("view1")
-view.print("Colocar a view1 em start")
 
 --[[
 start: é acionado quando uma cena é iniciada. 
 Isso pode ser usado para configurar a cena, 
 carregar recursos, criar objetos e definir valores iniciais.
 ]] --
-view.start("view2")
-view.print("Colocar a view2 em start")
+view.start("view1")
+view.print("Colocar a view1 em start")
 
 --[[
 pause: é acionado quando uma cena é pausada.
@@ -96,3 +94,19 @@ stop: é acionado quando uma cena é interrompida.
 ]] --
 view.stop("view7")
 view.print("Colocar a view7 em stop")
+
+-- VisibilityController
+--[[
+show: é acionado quando é necessario exibir uma cena
+ Isso pode ser usado para limpar recursos, remover objetos e salvar dados.
+]] --
+view.show("view8")
+view.print("Colocar a view7 em show")
+
+
+--[[
+hide: é acionado quando é necessario esconder uma cena
+ Isso pode ser usado para limpar recursos, remover objetos e salvar dados.
+]] --
+view.hide("view8")
+view.print("Colocar a view8 em hide")

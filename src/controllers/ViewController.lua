@@ -128,6 +128,25 @@ function view.remove(name)
     end
 end
 
+-- Visibility check
+function view.show(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "show"
+            break
+        end
+    end
+end
+
+function view.hide(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "hide"
+            break
+        end
+    end
+end
+
 -- States
 function view.pause(name)
     for i, v in ipairs(views) do
