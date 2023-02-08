@@ -2,6 +2,7 @@ view = require("controllers/ViewController")
 view.add("view1", "views/View1")
 view.add("view2", "views/View2")
 view.add("view3", "views/View3")
+view.show("view1")
 view.bringToTop("view3")
 view.sendToBack("view3")
 
@@ -30,33 +31,33 @@ function love.keypressed(key)
     if key == "1" then
         if pressed1 then
             -- Faz algo se o comando for pressionado pela segunda vez
-            view.stop("view1")
+            view.hide("view1")
             pressed1 = false
         else
             -- Faz algo se o comando for pressionado pela primeira vez
-            view.start("view1")
+            view.show("view1")
             pressed1 = true
         end
     end
     if key == "2" then
         if pressed2 then
             -- Faz algo se o comando for pressionado pela segunda vez
-            view.stop("view2")
+            view.hide("view2")
             pressed2 = false
         else
             -- Faz algo se o comando for pressionado pela primeira vez
-            view.start("view2")
+            view.show("view2")
             pressed2 = true
         end
     end
     if key == "3" then
         if pressed3 then
             -- Faz algo se o comando for pressionado pela segunda vez
-            view.stop("view3")
+            view.hide("view3")
             pressed3 = false
         else
             -- Faz algo se o comando for pressionado pela primeira vez
-            view.start("view3")
+            view.show("view3")
             pressed3 = true
         end
     end

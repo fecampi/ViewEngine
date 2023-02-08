@@ -107,6 +107,7 @@ function view.add(name, path)
         table.insert(views, {
             name = name,
             state = "stop",
+            visibility = "hide",
             object = {}
         })
         return
@@ -115,6 +116,7 @@ function view.add(name, path)
     table.insert(views, {
         name = name,
         state = "stop",
+        visibility = "hide",
         object = require(path):new()
     })
 end
@@ -129,25 +131,41 @@ function view.remove(name)
 end
 
 -- Visibility check
-function view.show(name)
+function view.hide(name)
     for i, v in ipairs(views) do
         if v.name == name then
-            v.state = "show"
+            if v.object.onHide then
+                v.object.onHide()
+            end
+            v.visibility = "hide"
             break
         end
     end
 end
 
-function view.hide(name)
+function view.show(name)
     for i, v in ipairs(views) do
         if v.name == name then
-            v.state = "hide"
-            break
+            if v.object.onShow then
+                v.object.onShow()
+            end
+            v.visibility = "show"
+            -- elseif v.state == "start" then
+            --     v.state = "stop"
         end
     end
 end
 
 -- States
+function view.start(name)
+    for i, v in ipairs(views) do
+        if v.name == name then
+            v.state = "start"
+            break
+        end
+    end
+end
+
 function view.pause(name)
     for i, v in ipairs(views) do
         if v.name == name then
@@ -187,24 +205,8 @@ end
 function view.stop(name)
     for i, v in ipairs(views) do
         if v.name == name then
-            if v.object.onStop then
-                v.object.onStop()
-            end
             v.state = "stop"
             break
-        end
-    end
-end
-
-function view.start(name)
-    for i, v in ipairs(views) do
-        if v.name == name then
-            if v.object.onStart then
-                v.object.onStart()
-            end
-            v.state = "start"
-            -- elseif v.state == "start" then
-            --     v.state = "stop"
         end
     end
 end
@@ -215,7 +217,7 @@ function view.print(msg)
     print(msg)
     print()
     for i, v in ipairs(views) do
-        print("name: " .. v.name .. " - Estado: " .. v.state)
+        print("name: " .. v.name .. " - Estado: " .. v.state .. " - Visibility: " .. v.visibility)
     end
     print("------")
 
@@ -223,8 +225,7 @@ end
 
 function view.draw()
     for currentView in pairs(views) do
-        if views[currentView].state == "start" or views[currentView].state == "resume" or views[currentView].state ==
-            "pause" then
+        if views[currentView].visibility == "show" then
             views[currentView].object.draw(views[currentView].object)
         end
 
@@ -246,7 +247,8 @@ end
 
 function view.update(dt)
     for currentView in pairs(views) do
-        if views[currentView].state == "resume" or views[currentView].state == "start" then
+        if views[currentView].state == "resume" or views[currentView].state == "start" or views[currentView].visibility ==
+            "show" then
             views[currentView].object.update(views[currentView].object, dt)
         end
     end
