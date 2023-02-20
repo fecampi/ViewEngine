@@ -1,4 +1,4 @@
-local Tween = require "tween"
+local Tween = require "Tween"
 
 function love.load()
     x = 100
@@ -7,12 +7,12 @@ function love.load()
     height = 50
 
     -- cria a animação do quadrado
-    tween1 = Tween.new(2, {
+    tween1 = Tween:new(2, {
         x = x
     }, {
         x = 300
     }, Tween.inOutQuad)
-    tween2 = Tween.new(2, {
+    tween2 = Tween:new(2, {
         x = 300
     }, {
         x = 100
