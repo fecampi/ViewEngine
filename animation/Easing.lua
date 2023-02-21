@@ -317,5 +317,18 @@ function Easing.outInBounce(t, b, c, d)
     return inBounce((t * 2) - d, b + c / 2, c / 2, d)
 end
 
+ function Easing.getEasingFunction(easing)
+    easing = easing or "linear"
+    if type(easing) == 'string' then
+        local name = easing
+        easing = Easing[name]
+        if type(easing) ~= 'function' then
+            error("The easing function name '" .. name .. "' is invalid")
+        end
+    end
+    return easing
+end
+
+
 return Easing
 

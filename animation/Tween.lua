@@ -1,38 +1,10 @@
+-- Adapted from https://github.com/EmmanuelOga/easing
+-- Adapted from https://github.com/kikito/Tween.lua
 Easing = require("Easing")
-local Tween = {
-    _VERSION = 'Tween 2.1.1',
-    _DESCRIPTION = 'tweening for lua',
-    _URL = 'https://github.com/kikito/Tween.lua',
-    _LICENSE = [[
-    MIT LICENSE
 
-    Copyright (c) 2014 Enrique García Cota, Yuichi Tateno, Emmanuel Oga
-
-    Permission is hereby granted, free of charge, to any person obtaining a
-    copy of this software and associated documentation files (the
-    "Software"), to deal in the Software without restriction, including
-    without limitation the rights to use, copy, modify, merge, publish,
-    distribute, sublicense, and/or sell copies of the Software, and to
-    permit persons to whom the Software is furnished to do so, subject to
-    the following conditions:
-
-    The above copyright notice and this permission notice shall be included
-    in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-  ]],
-    easing = Easing,
-    state = "stopped"
-}
+local Tween = {}
 
 -- private stuff
-
 local function copyTables(destination, keysTable, valuesTable)
     valuesTable = valuesTable or keysTable
     local mt = getmetatable(keysTable)
@@ -75,18 +47,6 @@ local function checkNewParams(duration, subject, target, easing)
     assert(type(target) == 'table', "target must be a table. Was " .. tostring(target))
     assert(type(easing) == 'function', "easing must be a function. Was " .. tostring(easing))
     checkSubjectAndTargetRecursively(subject, target)
-end
-
-local function getEasingFunction(easing)
-    easing = easing or "linear"
-    if type(easing) == 'string' then
-        local name = easing
-        easing = Tween.easing[name]
-        if type(easing) ~= 'function' then
-            error("The easing function name '" .. name .. "' is invalid")
-        end
-    end
-    return easing
 end
 
 local function performEasingOnSubject(subject, target, initial, clock, duration, easing)
@@ -137,10 +97,12 @@ function Tween:update(dt)
     return self:set(self.clock + dt)
 end
 
-
 function Tween:new(duration, subject, target, easing)
-    local tween = {}
-    easing = getEasingFunction(easing)
+    local tween = {
+        easing = Easing,
+        state = "stopped"
+    }
+    easing = Easing.getEasingFunction(easing)
     checkNewParams(duration, subject, target, easing)
     tween.duration = duration
     tween.subject = subject
@@ -151,7 +113,6 @@ function Tween:new(duration, subject, target, easing)
     self.__index = self
     return tween
 end
-
 
 
 return Tween
