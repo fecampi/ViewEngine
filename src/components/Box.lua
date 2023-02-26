@@ -38,6 +38,7 @@ function Box:draw()
 
     -- Define a largura da linha para a borda
     love.graphics.setLineWidth(self.rectProps.borderWidth)
+    
     -- Desenha a borda do box
     love.graphics.rectangle("line", self.rectProps.x, self.rectProps.y, self.rectProps.width, self.rectProps.height)
     -- Define a cor do conteúdo interno do box
