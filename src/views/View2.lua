@@ -1,6 +1,5 @@
 local View2 = {}
 
-
 -- Esqueminha para o lua aceitar a classe(pseudo-construtor)
 function View2:new(o)
     local o = o or {}
@@ -12,7 +11,7 @@ end
 
 function View2:load() -- inicializando variaveis
     self.box = Box:new(10, 10, 50, 50)
-    props = {
+    self.box:createTweenAnimation{
         options = {
             loop = true, -- animação em loop infinito
             easingMode = Easing.inOutQuad
@@ -41,7 +40,7 @@ function View2:load() -- inicializando variaveis
             duration = 2
         }}
     }
-    self.box:createTweenAnimation(props)
+    
 end
 
 function View2:update(dt)
