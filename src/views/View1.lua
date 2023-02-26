@@ -1,16 +1,14 @@
-
-
 local Square = {}
 
 function Square:new(o)
-    o = o or {}
+    local o = o or {}
     setmetatable(o, self)
     self.__index = self
     self.load(self)
     return o
 end
 
-function Square.load(self)
+function Square:load()
     -- inicializando variaveis
     self.x = 0
     self.y = 100
@@ -19,7 +17,7 @@ function Square.load(self)
     self.speed = 100
 end
 
-function Square.update(self, dt)
+function Square:update( dt)
     self.x = self.x + self.speed * dt
     if self.x > love.graphics.getWidth() then
         self.speed = -self.speed
@@ -29,35 +27,30 @@ function Square.update(self, dt)
     end
 end
 
-function Square.draw(self)
+function Square:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 end
 
 local View1 = {}
 
 function View1:new(o)
-    o = o or {}
+    local o = o or {}
     setmetatable(o, self)
     self.__index = self
     self.load(self)
     return o
 end
 
-function View1.load(self)
+function View1:load()
     -- inicializando variaveis
     self.square = Square:new()
 end
 
-function View1.addSquare(self)
-    -- inicializando variaveis
-    self.square = Square:new()
-end
-
-function View1.update(self,dt)
+function View1:update(dt)
     self.square:update(dt)
 end
 
-function View1.draw(self)
+function View1:draw()
     self.square:draw()
     love.graphics.print("View1", 50, self.square.y-20)
 end

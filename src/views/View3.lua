@@ -2,7 +2,7 @@ local View3 = {}
 
 -- Esqueminha para o lua aceitar a classe(pseudo-construtor)
 function View3:new(o)
-    o = o or {}
+    local o = o or {}
     setmetatable(o, self)
     self.__index = self
     self.square = {}
@@ -10,7 +10,7 @@ function View3:new(o)
     return o
 end
 
-function View3.load(self)
+function View3:load()
     -- inicializando variaveis
     self.scareX = 100
     self.square = {
@@ -20,11 +20,11 @@ function View3.load(self)
         height = 50,
         speed = 100
     }
-    self.video = love.graphics.newVideo("views/video.ogv")
+    self.video = love.graphics.newVideo("views/video720p.ogv")
     self.video:play()
 end
 
-function View3.update(self,dt)
+function View3:update(dt)
     self.square.x =  self.square.x +  self.square.speed * dt
     if  self.square.x > love.graphics.getWidth() then
         self.square.speed = - self.square.speed
@@ -33,7 +33,7 @@ function View3.update(self,dt)
         self.square.speed = - self.square.speed
     end
 end
-function View3.draw(self)
+function View3:draw()
     love.graphics.draw(self.video, 0, 0)
         love.graphics.rectangle("fill", self.square.x, self.square.y, self.square.width, self.square.height)
     love.graphics.print("View3", 50, self.square.y-20)

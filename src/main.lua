@@ -1,9 +1,16 @@
 view = require("controllers/ViewController")
-view.add("view1", "views/View1")
+TweenAnimation = require ("animation/TweenAnimation")
+Tween= require ("animation/Tween")
+Easing = require ("animation/Easing")
+Box = require ("components/Box")
+
+-- view.add("view1", "views/View1")
 view.add("view2", "views/View2")
-view.add("view3", "views/View3")
-view.show("view1")
-view.bringToTop("view3")
+-- view.add("view3", "views/View3")
+-- view.show("view1")
+view.show("view2")
+view.show("view3")
+view.bringToTop("view2")
 view.sendToBack("view3")
 
 -- Variável para armazenar se o comando foi pressionado uma vez
