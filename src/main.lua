@@ -1,8 +1,10 @@
 view = require("controllers/ViewController")
-TweenAnimation = require ("animation/TweenAnimation")
-Tween= require ("animation/Tween")
-Easing = require ("animation/Easing")
-Box = require ("components/Box")
+TweenAnimation = require("animation/TweenAnimation")
+Tween = require("animation/Tween")
+Easing = require("animation/Easing")
+Box = require("components/Box")
+GraphicServices = require("services/GraphicServices")
+graphics = GraphicServices:new()
 
 view.add("view1", "views/View1")
 view.add("view2", "views/View2")
@@ -21,7 +23,7 @@ pressedP = false
 pressedM = false
 
 function love.load()
-    love.window.setMode( 1280, 720 )
+    love.window.setMode(1280, 720)
     love.window.setTitle("View Engine")
     view.load()
 end
@@ -32,6 +34,7 @@ end
 
 function love.draw()
     view.draw()
+    love.graphics.print("FPS: " .. tostring(love.timer.getFPS()), 10, 10)
 end
 
 function love.keypressed(key)
@@ -70,7 +73,7 @@ function love.keypressed(key)
     end
 
     if key == "p" then
-        if  pressedP then
+        if pressedP then
             -- Faz algo se o comando for pressionado pela segunda vez
             view.resume("view1")
             pressedP = false
