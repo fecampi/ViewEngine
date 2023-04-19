@@ -1,31 +1,30 @@
+TweenAnimation = require "TweenAnimation"
+Tween= require "Tween"
+Easing = require "Easing"
 
-
-local View2 = View:new()
-View2.__index = View2
-
-function View2:new(o)
-    local self = setmetatable(View:new("view2"), self)
-    self.load(self)
-    return self
-end
-
-function View2:load() -- inicializando variaveis
-    self.box = self:add(10, 10, 50, 50)
-    self:tween({
-        target = self.box,
+function love.load()
+    love.window.setMode(1280, 720)
+    rect = {
+        x = 0,
+        y = 0,
+        width = 50,
+        height = 50
+    }
+    rectTween = {
+        subject = rect,
         options = {
             loop = true, -- animação em loop infinito
             easingMode = Easing.inOutQuad
         },
         tweens = {{
             options = {
-                x = 1280 - 50
+                x = 1280 - 50,
             },
             duration = 2
         }, {
             options = {
                 y = 720 - 50,
-                width = 20
+                width = 20,
             },
             duration = 2
         }, {
@@ -40,7 +39,15 @@ function View2:load() -- inicializando variaveis
             },
             duration = 2
         }}
-    })
+    }
+
+    tweenAnimation = TweenAnimation:new(rectTween)
 end
 
-return View2
+function love.update(dt)
+    tweenAnimation:update(dt)
+end
+
+function love.draw()
+    love.graphics.rectangle("fill", rect.x, rect.y, rect.width, rect.height)
+end
