@@ -1,7 +1,6 @@
 Box = require("components/Box")
 
 
-
 Stage = {}
 Stage.__index = Stage
 function Stage:new()

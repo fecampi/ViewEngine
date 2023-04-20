@@ -234,10 +234,9 @@ end
 
 function view.load()
     for currentView in pairs(views) do
-        print("loading")
         if views[currentView].state == "start" then
             if views[currentView].object.load then
-                print("loading")
+                print("loading" .. views[currentView].object.name)
                 views[currentView].object.load(views[currentView].object)
             end
         end
@@ -253,6 +252,9 @@ function view.update(dt)
         end
     end
 end
+
+
+
 
 return view
 

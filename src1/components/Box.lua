@@ -9,8 +9,8 @@ function Box:new(x, y, width, height, cornerRadius)
     self.height = height
     self.cornerRadius = cornerRadius
     self.borderWidth = 5
-    self.borderColor = {0, 1, 0} -- verde
-    self.boxColor = {0, 0, 1} -- azul
+    self.borderColor = {0, 1, 0,191} -- verde
+    self.boxColor = {0, 0, 1,191} -- azul
     return self
 end
 
