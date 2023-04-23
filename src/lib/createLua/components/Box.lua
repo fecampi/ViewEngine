@@ -1,8 +1,13 @@
-local Box = {}
-Box.__index = Box
--- Construtor da classe Box
-function Box:new(x, y, width, height, cornerRadius)
-    local self = setmetatable({}, Box)
+--[[
+The Rect class is a graphics object that represents a rectangular shape. 
+It is based on the EaselJS library's Graphics.Rect class,
+ which can be found at https://createjs.com/docs/easeljs/classes/Graphics.Rect.html.
+]]
+local Rect = {}
+Rect.__index = Rect
+-- Construtor da classe Rect
+function Rect:new(x, y, width, height, cornerRadius)
+    local self = setmetatable({}, Rect)
     self.x = x
     self.y = y
     self.width = width
@@ -11,11 +16,12 @@ function Box:new(x, y, width, height, cornerRadius)
     self.borderWidth = 5
     self.borderColor = {0, 1, 0,191} -- verde
     self.boxColor = {0, 0, 1,191} -- azul
+    self.alpha = 1
     return self
 end
 
 -- Função de desenho do box
-function Box:draw()
+function Rect:draw()
     -- Define a cor da borda do box
     love.graphics.setColor(self.borderColor)
     -- Define a largura da linha para a borda
@@ -30,4 +36,4 @@ function Box:draw()
     love.graphics.setLineWidth(1)
 end
 
-return Box
+return Rect

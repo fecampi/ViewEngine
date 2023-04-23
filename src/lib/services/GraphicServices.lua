@@ -7,7 +7,7 @@ function GraphicServices:new()
     return obj
 end
 
-function GraphicServices:drawBox(x, y, w, h, boxColor, borderColor, borderWidth)
+function GraphicServices:drawRect(x, y, w, h, boxColor, borderColor, borderWidth)
     -- Define a cor da borda do box
     love.graphics.setColor(borderColor)
     -- Define a largura da linha para a borda

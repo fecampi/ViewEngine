@@ -5,17 +5,20 @@ Easing = require("lib/animation/Easing")
 Box = require("lib/components/Box")
 Video = require("lib/components/Video")
 Button = require("lib/components/Button")
-ButtonIcon = require("lib/components/ButtonIcon")
 GraphicServices = require("lib/services/GraphicServices")
 View = require("lib/components/View")
 graphics = GraphicServices:new()
+Styles = require("lib/styles/index")
 
 
-viewController.add("view2", "views/View2")
+
 viewController.add("view1", "views/View1")
+viewController.add("view2", "views/View2")
+viewController.add("view3", "views/View3")
 
-viewController.show("view2")
 viewController.show("view1")
+viewController.show("view2")
+viewController.show("view3")
 
 viewController.sendToBack("view2")
 
@@ -69,11 +72,11 @@ function love.keypressed(key)
     if key == "3" then
         if pressed3 then
             -- Faz algo se o comando for pressionado pela segunda vez
-            viewController.hide("view1")
+            viewController.hide("view3")
             pressed3 = false
         else
             -- Faz algo se o comando for pressionado pela primeira vez
-            viewController.show("view1")
+            viewController.show("view3")
             pressed3 = true
         end
     end

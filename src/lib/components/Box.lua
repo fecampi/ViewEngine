@@ -1,3 +1,9 @@
+--[[
+The Rect class is a graphics object that represents a rectangular shape. 
+It is based on the EaselJS library's Graphics.Rect class,
+ which can be found at https://createjs.com/docs/easeljs/classes/Graphics.Rect.html.
+]]
+
 Box = {}
 Box.__index = Box
 
@@ -33,7 +39,7 @@ end
 
 function Box:draw()
     local color = {self.boxColor[1], self.boxColor[2], self.boxColor[3], self.alpha or 1}
-    graphics:drawBox(self.x, self.y, self.width, self.height, color, self.borderColor, self.borderWidth)
+    graphics:drawRect(self.x, self.y, self.width, self.height, color, self.borderColor, self.borderWidth)
 end
 
 return Box

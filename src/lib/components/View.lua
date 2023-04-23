@@ -14,17 +14,12 @@ function View:addBox(x, y, width, height)
     return component
 end
 
-function View:addButton(x, y, width, height, text)
-    local component = Button:new(x, y, width, height,text)
+function View:addButton(options)
+    local component = Button:new(options)
     self.components[component] = component
     return component
 end
 
-function View:addButtonIcon(x, y, width, height, text)
-    local component = ButtonIcon:new(x, y, width, height,text)
-    self.components[component] = component
-    return component
-end
 
 function View:addVideo(filename)
     local video = Video:new(filename)
