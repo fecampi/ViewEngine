@@ -1,10 +1,16 @@
-Stage = {} -- removed the empty curly braces, not needed
+--[[
+The Stage class is a container that represents the root of the display list hierarchy. 
+It is the top-level object that manages everything that is drawn on the canvas.
+This class is based on the EaselJS documentation for Stage found at https://createjs.com/docs/easeljs/classes/Stage.html.
+]]
+
+
+Stage = {} 
 Stage.__index = Stage
 
 function Stage:new()
     local self = setmetatable({}, Stage)
     self.components = {} -- corrected spelling of "components"
-    self.box = {} -- removed this line since it's not used
     self:execute()
     return self
 end

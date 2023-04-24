@@ -1,9 +1,7 @@
 Button = {}
 Button.__index = Button
 
-
-
-function Button:new( options)
+function Button:new(options)
     local self = setmetatable({}, Button)
     self.x = options and options.x or 0
     self.y = options and options.y or 0
@@ -11,7 +9,7 @@ function Button:new( options)
     self.font = options and options.font or love.graphics.getFont()
     self.borderWidth = options and options.borderWidth or 1
     self.style = Styles.getButtonStyle(options and options.variant or "default")
-    self.alpha = options and options.alpha or 0.5
+    self.alpha = options and options.alpha or 0.9
     self.cornerRadius = options and options.cornerRadius or 4
     self.paddingLeft = options and options.paddingLeft or 0
     self.paddingRight = options and options.paddingRight or 0
@@ -20,6 +18,7 @@ function Button:new( options)
     self.tweenAnimation = undefined
     self.isHovered = false
     self.onSelected = options and options.onSelected or 0
+    self.focusIndex = {}
 
     -- obtém a largura e a altura do texto usando a fonte especificada
     local textWidth = self.font:getWidth(self.text)
@@ -30,10 +29,6 @@ function Button:new( options)
     self.height = textHeight + 2 * self.borderWidth + self.paddingTop + self.paddingBottom
 
     return self
-end
-
-function Button:setStyle(styleName)
-    self.style = getButtonStyle(styleName) or self.style
 end
 
 function Button:createTweenAnimation(props)
@@ -49,17 +44,20 @@ function Button:update(dt)
     local mouseX, mouseY = love.mouse.getPosition()
     local isMouseOver = mouseX >= self.x and mouseX <= self.x + self.width and mouseY >= self.y and mouseY <= self.y +
                             self.height
-    if isMouseOver then
+    if isMouseOver or self.isFocused then
         self.isHovered = true
-        -- verifica se o botão do mouse foi pressionado
         if love.mouse.isDown(1) then
-            -- imprime a mensagem e define o triângulo como selecionado
             self.onSelected()
             self.isSelected = true
         end
     else
-        self.isHovered = false
+
+        if not self.isFocused then
+            self.isHovered = false
+        end
+
     end
+
     if self.tweenAnimation == undefined then
         return
     end
@@ -99,6 +97,31 @@ function Button:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(self.font)
     love.graphics.print(self.text, textX, textY)
+end
+
+function Button:setStyle(styleName)
+    self.style = getButtonStyle(styleName) or self.style
+end
+
+function Button:keypressed(key)
+    print(key)
+
+    if key == "left" and self.onArrowLeft then
+        print("Pressionada esquerda!")
+        self.onArrowLeft()
+    end
+    if key == "right" and self.onArrowRight then
+        self.onArrowRight()
+    end
+    if key == "up" then
+        print("Pressionada cima!")
+    end
+    if key == "down" then
+        print("Pressionada baixo!")
+    end
+    if key == "return" and self.onSelected then
+        self.onSelected()
+    end
 end
 
 return Button

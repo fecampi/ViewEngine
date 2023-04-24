@@ -11,36 +11,53 @@ local styled = {
         paddingBottom = 5,
         variant = "primary",
         text = "Primary",
-        alpha = 1
     },
-    buttonSucess = {
+    buttonDanger = {
         x = 200,
         y = 200,
         paddingLeft = 40,
         paddingRight = 10,
         paddingTop = 5,
         paddingBottom = 5,
-        variant = "success",
-        text = "Sucess",
-        alpha = 1
+        variant = "danger",
+        text = "Danger",
     }
 }
 
 function View2:new(o)
     local self = setmetatable(View:new("view2"), self)
     self.create(self)
+    self.isKeypressed = true
     return self
 end
 
 function View2:create()
     self.buttonPrimary = self:addButton(styled.buttonPrimary)
+    self.buttonPrimary.isFocused = true
+
+    self.buttonPrimary.onArrowRight = function()
+        self.buttonPrimary.isFocused = false
+        self.buttonDanger.isFocused = true
+        print("Com focus em buttonSucces e tecla direita pressionada")
+    end
+    self.buttonDanger = self:addButton(styled.buttonDanger)
+    self.buttonDanger.onArrowLeft = function()
+        self.buttonPrimary.isFocused = true
+        self.buttonDanger.isFocused = false
+        print("Com focus em Primary e tecla esquerda pressionada")
+    end
+
+
+
+
     self.buttonPrimary.onSelected = function()
-        print("Clicou no Button Primary")
+        viewController.show("view3")
     end
-    self.buttonSuccess = self:addButton(styled.buttonSucess)
-    self.buttonSuccess.onSelected = function()
-        print("Clicou no Button Sucess!")
+
+    self.buttonDanger.onSelected = function()
+        viewController.hide("view3")
     end
+
 end
 
 return View2

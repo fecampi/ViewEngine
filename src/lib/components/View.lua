@@ -5,6 +5,7 @@ function View:new(name)
     local self = setmetatable({}, self)
     self.name = name or ""
     self.components = {}
+    self.grid = {}
     return self
 end
 
@@ -19,7 +20,6 @@ function View:addButton(options)
     self.components[component] = component
     return component
 end
-
 
 function View:addVideo(filename)
     local video = Video:new(filename)
@@ -43,6 +43,14 @@ function View:draw()
     for _, component in pairs(self.components) do
         if component.draw and type(component.draw) == "function" then
             component:draw()
+        end
+    end
+end
+
+function View:keypressed(key)
+    for _, component in pairs(self.components) do
+        if component.keypressed and type(component.keypressed) == "function" and component.isFocused then
+            component:keypressed(key)
         end
     end
 end

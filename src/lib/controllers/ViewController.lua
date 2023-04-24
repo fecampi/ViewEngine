@@ -253,8 +253,74 @@ function view.update(dt)
     end
 end
 
+function view.keypressed(key)
+    for currentView in pairs(views) do
+        if views[currentView].object.isKeypressed == true and views[currentView].visibility == "show" then
+            views[currentView].object.keypressed(views[currentView].object, key)
+        end
 
+    end
+    if key == "1" then
+        if pressed1 then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            viewController.hide("view1")
+            pressed1 = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            viewController.show("view1")
+            pressed1 = true
+        end
+    end
+    if key == "2" then
+        if pressed2 then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            viewController.hide("view2")
+            pressed2 = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            viewController.show("view2")
+            pressed2 = true
+        end
+    end
+    if key == "3" then
+        if pressed3 then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            viewController.hide("view3")
+            pressed3 = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            viewController.show("view3")
+            pressed3 = true
+        end
+    end
 
+    if key == "p" then
+        if pressedP then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            viewController.resume("view1")
+            pressedP = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            viewController.pause("view1")
+            pressedP = true
+        end
+    end
+
+    if key == "m" then
+        if pressedM then
+            -- Faz algo se o comando for pressionado pela segunda vez
+            viewController.bringToTop("view1")
+            print("sendTop")
+            pressedM = false
+        else
+            -- Faz algo se o comando for pressionado pela primeira vez
+            viewController.sendToBack("view1")
+            print("sendBack")
+            pressedM = true
+        end
+    end
+
+end
 
 return view
 
