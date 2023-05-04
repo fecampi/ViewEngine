@@ -8,7 +8,17 @@ function View3:new(o)
 end
 
 function View3:create()
-    self.box = self:addBox(10, 10, 50, 50,60)
+    self.box = self:addBox({
+        x = 10,
+        y = 10,
+        width = 50,
+        height = 50,
+        cornerRadius = 60,
+        borderWidth = 5,
+        borderColor = {0, 1, 0}, -- verde
+        boxColor = {0, 0, 1}, -- azul
+        alpha = 0.5
+    })
     self.box.width = 100
     self:tween({
         target = self.box,

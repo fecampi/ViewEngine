@@ -7,17 +7,18 @@ It is based on the EaselJS library's Graphics.Rect class,
 Box = {}
 Box.__index = Box
 
-function Box:new(x, y, width, height)
+function Box:new(options)
     local self = setmetatable({}, Box)
-    self.x = x
-    self.y = y
-    self.width = width
-    self.height = height
-    self.borderWidth = 5
-    self.borderColor = {0, 1, 0} -- verde
-    self.boxColor = {0, 0, 1} -- azul
-    self.alpha = 0.5
+    self.x = options and options.x or 0
+    self.y = options and options.y or 0
+    self.width = options and options.width or 0
+    self.height = options and options.height or 0
+    self.borderWidth = options and options.borderWidth  or 0
+    self.borderColor = options and options.borderColor or 0
+    self.color = options and options.color or {0, 0, 1}
+    self.alpha = options and options.alpha or 0
     self.tweenAnimation = undefined
+    self.cornerRadius =  options and options.cornerRadius or 10
     return self
 end
 
@@ -38,8 +39,16 @@ function Box:update(dt)
 end
 
 function Box:draw()
-    local color = {self.boxColor[1], self.boxColor[2], self.boxColor[3], self.alpha or 1}
-    graphics:drawRect(self.x, self.y, self.width, self.height, color, self.borderColor, self.borderWidth)
+    graphics:drawRect({  
+        x = self.x,
+        y = self.y,
+        cornerRadius = self.cornerRadius,
+        width = self.width,
+        height = self.height,
+        borderColor = self.borderColor,
+        borderWidth = self.borderWidth,
+        color = self.color
+    })    
 end
 
 return Box

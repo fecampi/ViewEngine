@@ -3,14 +3,31 @@ Button.__index = Button
 
 function Button:new(options)
     local self = setmetatable({}, Button)
+
     self.x = options and options.x or 0
     self.y = options and options.y or 0
+    self.width = options and options.width or 0
+    self.height = options and options.height or 0
+    self.tweenAnimation = undefined
+    self.cornerRadius = options and options.cornerRadius or 10
+
+    self.style = Styles.getButtonStyle(options and options.variant or "default")
+
+    local boxOptions = {
+        x = self.x,
+        y = self.y,
+        options and options.cornerRadius or 4,
+        borderWidth = options and options.borderWidth or 1,
+        borderColor = self.style.borderColor,
+        boxColor = options and options.boxColor or {0, 0, 1},
+        alpha = 0.5
+    }
+    self.box = Box:new(boxOptions)
+
     self.text = options and options.text or ""
     self.font = options and options.font or love.graphics.getFont()
     self.borderWidth = options and options.borderWidth or 1
-    self.style = Styles.getButtonStyle(options and options.variant or "default")
-    self.alpha = options and options.alpha or 0.9
-    self.cornerRadius = options and options.cornerRadius or 4
+
     self.paddingLeft = options and options.paddingLeft or 0
     self.paddingRight = options and options.paddingRight or 0
     self.paddingTop = options and options.paddingTop or 0
@@ -19,14 +36,19 @@ function Button:new(options)
     self.isHovered = false
     self.onSelected = options and options.onSelected or 0
     self.focusIndex = {}
+    self.isFocused = options and options.isFocused or false
+    self.onArrowRight = options and options.onArrowRight or false
+    self.onArrowLeft = options and options.onArrowLeft or false
 
     -- obtém a largura e a altura do texto usando a fonte especificada
     local textWidth = self.font:getWidth(self.text)
     local textHeight = self.font:getHeight()
 
-    -- define a largura e a altura do botão com base na largura e altura do texto
-    self.width = textWidth + 2 * self.borderWidth + self.paddingLeft + self.paddingRight
-    self.height = textHeight + 2 * self.borderWidth + self.paddingTop + self.paddingBottom
+
+  -- define a largura e a altura do botão com base na largura e altura do texto
+    self.box.width = textWidth + 2 * self.box.borderWidth + self.paddingLeft + self.paddingRight
+    self.box.height = textHeight + 2 * self.box.borderWidth + self.paddingTop + self.paddingBottom
+
 
     return self
 end
@@ -70,6 +92,13 @@ function Button:draw()
         color = {self.style.hoverColor[1], self.style.hoverColor[2], self.style.hoverColor[3], self.alpha or 1}
     end
 
+    self.box.color = {self.style.boxColor[1], self.style.boxColor[2], self.style.boxColor[3], self.alpha or 1}
+    if self.isHovered then
+        self.box.color = {self.style.hoverColor[1], self.style.hoverColor[2], self.style.hoverColor[3], self.alpha or 1}
+    end
+
+
+
     -- medida do texto
     local textWidth = self.font:getWidth(self.text)
     local textHeight = self.font:getHeight()
@@ -82,21 +111,14 @@ function Button:draw()
     local textX = self.x + self.paddingLeft + (self.width - textWidth - self.paddingLeft - self.paddingRight) / 2
     local textY = self.y + self.paddingTop + (self.height - textHeight - self.paddingTop - self.paddingBottom) / 2
 
-    -- Define a cor do conteúdo interno do box
-    love.graphics.setColor(color)
-    -- Desenha o conteúdo interno do box
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height, self.cornerRadius, self.cornerRadius)
-    -- Define a largura da linha para o conteúdo interno do box
-    love.graphics.setLineWidth(self.borderWidth)
-    -- Define a cor da borda do box
-    love.graphics.setColor(self.style.borderColor)
-    -- Desenha a borda do box
-    love.graphics.rectangle("line", self.x, self.y, self.width, self.height, self.cornerRadius, self.cornerRadius)
+    -- Desenha quadrado
+    self.box:draw()
 
     -- Define a cor do texto
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(self.font)
     love.graphics.print(self.text, textX, textY)
+
 end
 
 function Button:setStyle(styleName)
